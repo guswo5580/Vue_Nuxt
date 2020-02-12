@@ -1,6 +1,6 @@
 <template>
   <div>
-    Index Page
+    Main Page
   </div>
 </template>
 
