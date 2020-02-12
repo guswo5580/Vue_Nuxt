@@ -1,0 +1,22 @@
+// Eslint 설정
+{
+  "parserOptions": {
+    "ecmaVersion": 2019,
+    // import 환경
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+
+  // plugin 모음
+  "extends": ["plugin:vue/recommended"],
+  "plugins": [],
+
+  // plugin 설정사항 변경 (npm run lint로 검사 후 적용)
+  "rules": {
+    "vue/max-attributes-per-line": "off",
+    "vue/singleline-html-element-content-newline": "off"
+  }
+}
