@@ -4,22 +4,49 @@
       <v-card style="margin-bottom: 20px">
         <v-container>
           <v-subheader>내 프로필</v-subheader>
-          <v-form>
-            <v-text-field label="닉네임" required />
-            <v-btn color="blue" type="submit">수정</v-btn>
+          <v-form v-model="valid" @submit.prevent="onChangeNickname">
+            <v-text-field
+              v-model="nickname"
+              label="닉네임"
+              :rules="nicknameRules"
+              required
+            />
+            <v-btn dark color="blue" type="submit">수정</v-btn>
           </v-form>
         </v-container>
       </v-card>
       <v-card style="margin-bottom: 20px">
         <v-container>
           <v-subheader>팔로잉</v-subheader>
-          <follow-list />
+          <!-- props 변화를 통해 같은 컴포넌트를 다르게 이용 -->
+          <follow-list :users="followingList" :remove="removeFollowing" />
+          <v-btn
+            @click="loadMoreFollowings"
+            v-if="hasMoreFollowing"
+            dark
+            color="blue"
+            style="width: 100%"
+            >더보기</v-btn
+          >
         </v-container>
       </v-card>
       <v-card style="margin-bottom: 20px">
         <v-container>
           <v-subheader>팔로워</v-subheader>
-          <follow-list />
+          <!-- props 변화를 통해 같은 컴포넌트를 다르게 이용 -->
+          <follow-list
+            :abc="abc"
+            :users="followerList"
+            :remove="removeFollower"
+          />
+          <v-btn
+            @click="loadMoreFollowers"
+            v-if="hasMoreFollower"
+            dark
+            color="blue"
+            style="width: 100%"
+            >더보기</v-btn
+          >
         </v-container>
       </v-card>
     </v-container>
@@ -55,5 +82,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
