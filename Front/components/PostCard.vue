@@ -4,12 +4,16 @@
       <v-image />
       <v-card-title>
         <h3>
-          <nuxt-link :to="'/user/' + post.id">{{post.User.nickname}}</nuxt-link>
+          <!-- 페이지를 새로고침하지 않으면서 링크를 변경하는 경우 -->
+          <!-- :to="변하지 않을 주소" + 변할 주소 -->
+          <nuxt-link :to="'/user/' + post.id">{{
+            post.User.nickname
+          }}</nuxt-link>
         </h3>
       </v-card-title>
       <v-card-text>
         <div>
-          <div>{{post.content}}</div>
+          <div>{{ post.content }}</div>
         </div>
       </v-card-text>
       <v-card-actions>
@@ -40,11 +44,11 @@
       <v-list>
         <v-list-item v-for="c in post.Comments" :key="c.id">
           <v-list-item-avatar color="teal">
-            <span>{{c.User.nickname[0]}}</span>
+            <span>{{ c.User.nickname[0] }}</span>
           </v-list-item-avatar>
           <v-list-item-content>
-            <h3>{{c.User.nickname}}</h3>
-            <div>{{c.content}}</div>
+            <h3>{{ c.User.nickname }}</h3>
+            <div>{{ c.content }}</div>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -53,42 +57,40 @@
 </template>
 
 <script>
-  import CommentForm from '~/components/CommentForm';
+import CommentForm from "~/components/CommentForm";
 
-  export default {
-    components: {
-      CommentForm,
+export default {
+  components: {
+    CommentForm
+  },
+  props: {
+    post: {
+      type: Object,
+      required: true
+    }
+  },
+  data() {
+    return {
+      commentOpened: false
+    };
+  },
+  methods: {
+    onRemovePost() {
+      this.$store.dispatch("posts/remove", {
+        id: this.post.id
+      });
     },
-    props: {
-      post: {
-        type: Object,
-        required: true,
-      },
-    },
-    data() {
-      return {
-        commentOpened: false,
-      };
-    },
-    methods: {
-      onRemovePost() {
-        this.$store.dispatch('posts/remove', {
-          id: this.post.id,
-        });
-      },
-      onEditPost() {
-
-      },
-      onToggleComment() {
-        this.commentOpened = !this.commentOpened;
-      },
-    },
-  };
+    onEditPost() {},
+    onToggleComment() {
+      this.commentOpened = !this.commentOpened;
+    }
+  }
+};
 </script>
 
 <style scoped>
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
+a {
+  color: inherit;
+  text-decoration: none;
+}
 </style>
