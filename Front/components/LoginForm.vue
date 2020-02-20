@@ -1,15 +1,9 @@
 <template>
-  <v-container>
+  <v-container v-if="!me">
     <v-card>
       <v-form ref="form" v-model="valid" @submit.prevent="onSubmitForm">
         <v-container>
-          <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="이메일"
-            type="email"
-            required
-          />
+          <v-text-field v-model="email" :rules="emailRules" label="이메일" type="email" required />
           <v-text-field
             v-model="password"
             :rules="passwordRules"
@@ -21,6 +15,14 @@
           <v-btn nuxt to="/signup">회원가입</v-btn>
         </v-container>
       </v-form>
+    </v-card>
+  </v-container>
+  <v-container v-else>
+    <v-card>
+      <v-container>
+        {{me.nickname}}님 로그인되었습니다.
+        <v-btn @click="onLogOut">로그아웃</v-btn>
+      </v-container>
     </v-card>
   </v-container>
 </template>
@@ -39,9 +41,23 @@ export default {
       passwordRules: [v => !!v || "비밀번호는 필수입니다."]
     };
   },
+  //Vuex의 state에 접근할 때는 항상 computed를 통해 접근
+  computed: {
+    me() {
+      return this.$store.state.users.me;
+    }
+  },
   methods: {
     onSubmitForm() {
-      this.$refs.form.validate();
+      if (this.$refs.form.validate()) {
+        this.$store.dispatch("users/logIn", {
+          email: this.email,
+          nickname: "ExampleNickname"
+        });
+      }
+    },
+    onLogOut() {
+      this.$store.dispatch("users/logOut");
     }
   }
 };

@@ -5,13 +5,7 @@
         <v-container>
           <v-subheader>회원가입</v-subheader>
           <v-form ref="form" v-model="valid" @submit.prevent="onSubmitForm">
-            <v-text-field
-              v-model="email"
-              label="이메일"
-              type="email"
-              :rules="emailRules"
-              required
-            />
+            <v-text-field v-model="email" label="이메일" type="email" :rules="emailRules" required />
             <v-text-field
               v-model="password"
               label="비밀번호"
@@ -80,9 +74,21 @@ export default {
       // Vuetify 내 validate의 판별 속성 이용
       // 모든 Data가 작성되어 valid 변수가 true로 바뀌는 것을 확인
       if (this.$refs.form.validate()) {
-        alert("회원가입 시도!");
-      } else {
-        alert("폼이 유효하지 않습니다.");
+        //모듈 형식 Vuex에서 index 하위 파일의 mutation, actions에 접근하는 방법
+        this.$store
+          .dispatch("users/signUp", {
+            nickname: this.nickname,
+            email: this.email
+          })
+          //actions는 기본이 비동기
+          .then(() => {
+            this.$router.push({
+              path: "/"
+            });
+          })
+          .catch(() => {
+            alert("회원가입 실패");
+          });
       }
     }
   },
