@@ -28,14 +28,24 @@
 
 <script>
 import FollowList from "~/components/FollowList";
+
 export default {
   components: {
     FollowList
   },
   data() {
     return {
-      name: "Nuxt.js"
+      valid: false,
+      nickname: "",
+      nicknameRules: [v => !!v || "닉네임을 입력하세요."]
     };
+  },
+  methods: {
+    onChangeNickname() {
+      this.$store.dispatch("users/changeNickname", {
+        nickname: this.nickname
+      });
+    }
   },
   head() {
     return {
@@ -45,4 +55,5 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+</style>
