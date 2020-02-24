@@ -5,7 +5,7 @@ export const state = () => ({
   hasMoreFollower: true,
   hasMoreFollowing: true
 });
-
+//팔로잉, 팔로워 pagenation
 const totalFollowers = 8;
 const totalFollowings = 6;
 const limit = 3;
@@ -31,6 +31,8 @@ export const mutations = {
     const index = state.followingList.findIndex(v => v.id === payload.id);
     state.followingList.splice(index, 1);
   },
+
+  //팔로잉, 팔로워 페이지네이션
   loadFollowings(state) {
     const diff = totalFollowings - state.followingList.length;
     const fakeUsers = Array(diff > limit ? limit : diff)
@@ -66,9 +68,11 @@ export const actions = {
   logOut({ commit }, payload) {
     commit("setMe", null);
   },
+  ///////////////////////////////////////
   changeNickname({ commit }, payload) {
     commit("changeNickname", payload);
   },
+  ///////////////////////////////////////
   addFollowing({ commit }, payload) {
     commit("addFollowing", payload);
   },
@@ -82,6 +86,7 @@ export const actions = {
   removeFollower({ commit }, payload) {
     commit("removeFollower", payload);
   },
+  ///////////////////////////////////////
   loadFollowers({ commit, state }, payload) {
     if (state.hasMoreFollower) {
       commit("loadFollowers");

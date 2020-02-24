@@ -19,6 +19,8 @@
         <v-container>
           <v-subheader>팔로잉</v-subheader>
           <follow-list :users="followingList" :remove="removeFollowing" />
+          <!-- pagenation을 위한 버튼 -->
+          <!-- 더 볼 list가 있을 경우에만 작동되도록 설정 -->
           <v-btn
             @click="loadMoreFollowings"
             v-if="hasMoreFollowing"
@@ -95,6 +97,8 @@ export default {
     removeFollower(id) {
       this.$store.dispatch("users/removeFollower", { id });
     },
+
+    //더보기 버튼 클릭 시, 요청
     loadMoreFollowers() {
       this.$store.dispatch("users/loadFollowers");
     },
