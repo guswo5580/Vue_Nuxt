@@ -89,6 +89,7 @@ export default {
 </script>
 
 <style scoped>
+/* nuxt-link === a */
 a {
   color: inherit;
   text-decoration: none;

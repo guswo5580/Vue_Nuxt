@@ -1,4 +1,6 @@
 <template>
+  <!-- 유저 이름 클릭, 검색 시 표현하는 라우터 -->
+  <!-- page의 index.vue와 같은 것으로 표현!!! -->
   <v-container>
     <div>
       <post-card v-for="p in mainPosts" :key="p.id" :post="p" />
@@ -8,7 +10,6 @@
 
 <script>
 import PostCard from "~/components/PostCard";
-import PostForm from "~/components/PostForm";
 
 export default {
   components: {
@@ -56,5 +57,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
