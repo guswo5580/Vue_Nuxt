@@ -1,12 +1,11 @@
 <template>
   <!-- 링크 등을 통해 하나의 게시글만 확인할 경우 동적 라우팅을 이용
-  id를 통한 게시글을 도출 -->
+  id를 통한 게시글을 도출-->
   <v-container v-if="post">
+    <!-- computed의 post 조건에 해당할 경우 -->
     <post-card :post="post" />
   </v-container>
-  <div v-else>
-    해당 아이디의 게시글이 존재하지 않습니다.
-  </div>
+  <div v-else>해당 아이디의 게시글이 존재하지 않습니다.</div>
 </template>
 
 <script>
